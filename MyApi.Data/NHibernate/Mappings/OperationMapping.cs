@@ -7,8 +7,9 @@ namespace MyApi.Data.NHibernate.Mappings
     {
         public OperationMapping()
         {
+            Table("Operacao");
             Id(o => o.Id);
-            Map(o => o.Data);
+            Map(o => o.Date).Column("Data");
         }
     }
 }

@@ -29,12 +29,12 @@ namespace MyApi.Data.Repositories
                 var groupProjection = Projections.GroupProperty(
                     Projections.SqlFunction("minute_interval",
                         NHibernateUtil.DateTime,
-                        Projections.Property(() => operation.Data),
+                        Projections.Property(() => operation.Date),
                         Projections.Constant(intervalInMinutes)));
 
                 var query = session.QueryOver(() => operation)
                     .Select(groupProjection, Projections.Count(() => operation.Id))
-                    .AndRestrictionOn(() => operation.Data).IsBetween(initialDate).And(endDate)
+                    .AndRestrictionOn(() => operation.Date).IsBetween(initialDate).And(endDate)
                     .TransformUsing(Transformers.AliasToBean<CountByDate>());
 
                 return query.List<CountByDate>();
